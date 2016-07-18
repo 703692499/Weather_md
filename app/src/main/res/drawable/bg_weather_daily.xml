@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item>
+        <shape
+            android:bottom="1dp"
+            android:left="1dp"
+            android:right="1dp"
+            android:shape="rectangle"
+            android:top="1dp">
+            <gradient
+                android:startColor="@color/gv_weather_daily"
+                android:centerColor="@color/gv_weather_daily"
+                android:endColor="@color/white"
+                android:angle="270"/>
+        </shape>
+    </item>
+
+
+</layer-list>

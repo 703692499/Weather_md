@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#01aaf3</color>
+    <color name="colorPrimaryDark">#0099df</color>
+    <color name="colorAccent">#FF4081</color>
+    <color name="transparent">#00000000</color>
+    
+    <color name="lv_item_background_normal">#ffffff</color>
+    <color name="lv_item_background_selected">#780080ff</color>
+
+    <color name="red">#ff0000</color>
+    <color name="red_dark">#ec0909</color>
+    <color name="black">#000000</color>
+    <color name="gray">#6c6c6c</color>
+    <color name="hint_gray">#b7b7b7</color>
+    <color name="tv_weather_daily">#606060</color>
+    <color name="gv_weather_daily">#d2d2d2</color>
+
+    <color name="white">#ffffff</color>
+    <color name="sp_weather">#a3037bb3</color>
+
+    <color name="bg_city_search_gps">#bababa</color>
+    <color name="backcolor_city_search_gps">#d9ffffff</color>
+
+    <color name="bg_weather_main">#01aaf3</color>
+    <color name="bg_weather_main_dark">#029be2</color>
+
+
+    <color name="bg_weather_show">#f2eef2</color>
+    <color name="tv_weather_little">#98d6ff</color>
+
+
+    <color name="bg_widget">#f1f1f1</color>
+    <color name="tv_widget_gray">#626262</color>
+    <color name="tv_widget_blue">#43a2e6</color>
+
+
+</resources>

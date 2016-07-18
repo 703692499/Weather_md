@@ -1,0 +1,26 @@
+<resources>
+    <string name="app_name">Weather</string>
+
+
+    <string name="et_citysearch">搜索全国城市</string>
+    <string name="tv_citysearch">清空</string>
+    <string name="tv_citysearch_multimode_all">全选</string>
+    <string name="tv_citysearch_gps">正在定位中</string>
+    <string name="tv_daily_title">5天预报</string>
+
+
+    <string name="btn_setting_ten">10分钟</string>
+    <string name="btn_setting_sixty">60分钟</string>
+    <string name="btn_setting_twelve">12小时</string>
+    <string name="tv_setting_title">更新频率</string>
+
+
+
+    <string name="tv_share_text">分享第</string>
+    <string name="btn_share_share">分享</string>
+    <string name="tv_share_days">天</string>
+    <string name="tv_share_day">今</string>
+    <string name="tv_daily_date">-/-</string>
+
+
+</resources>
