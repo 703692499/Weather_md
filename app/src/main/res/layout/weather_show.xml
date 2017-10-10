@@ -266,13 +266,14 @@
                     <LinearLayout
                         android:id="@+id/ly_daily_highlow"
                         android:layout_width="match_parent"
-                        android:layout_height="180dp"
+                        android:layout_height="wrap_content"
+                        android:background="@color/colorPrimary"
                         android:layout_below="@id/gv_weather_daily">
 
                         <com.willchen.weather.view.DailyView
                             android:id="@+id/dv_weather_daily"
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content" />
+                            android:layout_height="200dp" />
 
                     </LinearLayout>
 

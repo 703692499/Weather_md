@@ -1,6 +1,8 @@
 package com.willchen.weather.config;
 
 
+import static com.baidu.location.h.i.q;
+
 public class Constant {
 
     /*
@@ -26,23 +28,28 @@ public class Constant {
     * 心知天气API
     * */
 
-    public static final String SEARCH_CITY_URL = "https://api.thinkpage.cn/v3/location/search.json?key=kn8xwx1xiysxehxg&q=";      //查询城市
     public static final int SEARCH_NOW = 10;
     public static final int SEARCH_DAILY = 20;
     public static final int SEARCH_SUGGESTION = 30;
-    public static final int SEARCH_SUNOUTOFF=40;
+    public static final int SEARCH_SUNOUTOFF = 40;
+    /**
+     * key
+     */
+    public static final String KEY = "8f785afd505a4c1087b60e140e9ed99f";
 
+
+    public static final String SEARCH_CITY_URL = "https://api.heweather.com/v5/search?key="+KEY+"&city=";      //查询城市
 
 
     /*
     * 查询实况天气
     * */
-    public static final String SEARCH_WEATHER_NOW = "https://api.thinkpage.cn/v3/weather/now.json?key=kn8xwx1xiysxehxg&location=";               //今日天气
-    public static final String SEARCH_WEATHER_DAILY = "https://api.thinkpage.cn/v3/weather/daily.json?key=kn8xwx1xiysxehxg&location=";           //多天天气
-    public static final String SEARCH_WEATHER_SUGGESTION = "https://api.thinkpage.cn/v3/life/suggestion.json?key=kn8xwx1xiysxehxg&location=";     //生活指数
-    public static final String SEARCH_WEATHER_SUNOUTOFF = "https://api.thinkpage.cn/v3/geo/sun.json?key=kn8xwx1xiysxehxg&location=";              //日出日落
+    public static final String SEARCH_WEATHER_NOW = "https://free-api.heweather.com/v5/weather/now.json?key=" + KEY + "&location=";               //今日天气
+    public static final String SEARCH_WEATHER_DAILY = "https://free-api.heweather.com/v5/weather/daily.json?key=" + KEY + "&location=";           //多天天气
+    public static final String SEARCH_WEATHER_SUGGESTION = "https://free-api.heweather.com/v5/life/suggestion.json?key=" + KEY + "&location=";     //生活指数
+    public static final String SEARCH_WEATHER_SUNOUTOFF = "https://free-api.heweather.com/v5/geo/sun.json?key=" + KEY + "&location=";              //日出日落
 
-    public static final String SEARCH_WEATHER="https://api.heweather.com/x3/weather?key=701ffb21e08c4b8f8cca83155f60e5a1&city=";            //和风天气
+    public static final String SEARCH_WEATHER = "https://free-api.heweather.com/v5/weather?key=" + KEY + "&city=";            //和风天气
 
 
     public static final String SEARCH_WEATHER_LANGUAGE = "&language=zh-Hans";
@@ -56,8 +63,7 @@ public class Constant {
     /*
     * Message.what*/
     public static final int NOT_CONNECT = -21;      //网络无连接
-    public static final int FROM_SQL=-22;           //从数据库获取天气
-
+    public static final int FROM_SQL = -22;           //从数据库获取天气
 
 
     /*
@@ -65,8 +71,8 @@ public class Constant {
     * */
     public static final int RESULT_LIST = 223;
     public static final int RESULT_YOURS = 221;
-    public static final int RESULT_HTTP =224;
-    public static final int RESULT_UPDATE =220 ;
+    public static final int RESULT_HTTP = 224;
+    public static final int RESULT_UPDATE = 220;
 
 
     /*
@@ -81,7 +87,6 @@ public class Constant {
     * ToolBar
     * */
     public static final int BTN_BACK = -1;
-
 
 
     /*

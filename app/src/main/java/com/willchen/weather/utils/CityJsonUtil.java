@@ -14,6 +14,8 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.List;
 
+import static android.R.id.message;
+
 
 public class CityJsonUtil {
 
@@ -30,13 +32,15 @@ public class CityJsonUtil {
                     try {
                         int i = 0;
                         List<String> cityName = new ArrayList<String>();
+
                         JSONObject jsonObject = new JSONObject(response);
-                        JSONArray results = jsonObject.getJSONArray("results");
+                        JSONArray results = jsonObject.getJSONArray("HeWeather5");
                         while (!results.isNull(i)) {
-                            JSONObject cityObject = results.getJSONObject(i);
+                            JSONObject basicObject= results.getJSONObject(i);
+                            JSONObject cityObject = basicObject.getJSONObject("basic");
                             City city = new City();
                             city.setCityId(cityObject.getString("id"));
-                            bigCity = cityObject.getString("path");
+                            bigCity = cityObject.getString("city")+","+cityObject.getString("prov")+","+cityObject.getString("cnty");
                             city.setCityName(bigCity);
                             db.saveCity(city);
                             if (!cityName.contains(bigCity)) {
@@ -44,17 +48,15 @@ public class CityJsonUtil {
                             }
                             i++;
                         }
+                        Message message = new Message();
                         if (mode == Constant.GPS) {
-                            Message message = new Message();
                             message.what = Constant.GPS_JSON;
                             message.obj = bigCity;
-                            handler.sendMessage(message);
                         } else if (mode == 0) {
-                            Message message = new Message();
                             message.what = Constant.CITY_JSON;
                             message.obj = cityName;
-                            handler.sendMessage(message);
                         }
+                        handler.sendMessage(message);
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }

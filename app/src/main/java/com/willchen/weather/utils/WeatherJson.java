@@ -174,7 +174,7 @@ public class WeatherJson {
                     try {
                         String nowResults = "";
                         JSONObject jsonObject = new JSONObject(response);
-                        JSONArray results = jsonObject.getJSONArray("HeWeather data service 3.0");
+                        JSONArray results = jsonObject.getJSONArray("HeWeather5");
                         JSONObject resultsJSONObject = results.getJSONObject(0);
                         if (resultsJSONObject.has("now")) {
                             JSONObject nowObject = new JSONObject(resultsJSONObject.getString("now"));
