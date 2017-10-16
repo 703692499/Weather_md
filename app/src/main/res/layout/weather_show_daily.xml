@@ -22,5 +22,4 @@
         android:layout_marginTop="5dp"
         android:background="@drawable/iv_weather_unknow_dark" />
 
-
 </RelativeLayout>

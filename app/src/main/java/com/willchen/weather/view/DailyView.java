@@ -15,6 +15,11 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
+import static android.media.CamcorderProfile.get;
+import static com.baidu.location.h.b.f;
+import static com.baidu.location.h.b.i;
+import static com.baidu.location.h.i.m;
+
 public class DailyView extends View {
 
     private Paint mHighLinePaint;
@@ -29,6 +34,7 @@ public class DailyView extends View {
     private int offSetY = -15;          //1°的纵向差量
     private int offSetText = -35;        //文字偏移量
     private int offSetColums = -5;        //相邻两天的距离
+    private float mAverage = 0;
 
     public DailyView(Context context, AttributeSet attrs) {
         super(context, attrs);
@@ -56,7 +62,7 @@ public class DailyView extends View {
 
     public void setLowTemp(List<Integer> lowTemp) {
         this.lowTemp = lowTemp;
-        List<Integer> lowList =new ArrayList<>(lowTemp);
+        List<Integer> lowList = new ArrayList<>(lowTemp);
         Collections.sort(lowList, new Comparator<Integer>() {
             @Override
             public int compare(Integer o1, Integer o2) {
@@ -64,7 +70,14 @@ public class DailyView extends View {
             }
         });
         bottomHeight = lowList.get(0);
-
+        int result = 0;
+        for (int i = 0; i < highTemp.size(); i++) {
+            result += highTemp.get(i);
+        }
+        for (int i = 0; i < lowTemp.size(); i++) {
+            result += lowTemp.get(i);
+        }
+        mAverage = result / (highTemp.size() + lowTemp.size());
 //        requestLayout();
         invalidate();
     }
@@ -96,18 +109,12 @@ public class DailyView extends View {
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
 
         screenWidth = MeasureSpec.getSize(widthMeasureSpec);
-
-
         viewHeight = MeasureSpec.getSize(heightMeasureSpec);
         if (lowTemp != null) {
-            viewHeight = viewHeight / 3 + (topHeight - bottomHeight) * Math.abs(offSetY) +Math.abs(offSetText)*4;
-            LinearLayout.LayoutParams params = (LinearLayout.LayoutParams) getLayoutParams();
-            params.height = viewHeight;
-            setLayoutParams(params);
+            viewHeight = viewHeight / 2 + (topHeight - bottomHeight) * Math.abs(offSetY) ;
         }
         Log.d("height", "onMeasure: " + viewHeight);
         columsWidth = screenWidth / 5;
-
         setMeasuredDimension(screenWidth, viewHeight);
     }
 
@@ -120,52 +127,43 @@ public class DailyView extends View {
         }
         float startX = columsWidth / 2;     //中间开始画
         float startY = viewHeight;
-        startY /= 3;
+        startY /= 2;
 
-        float detay;
-
+        float detay;                    //下一个高度
 
         for (int i = 0; i < highTemp.size() - 1; i++) {
             mHighLinePaint.setAlpha(0xff);
-
-            detay = (highTemp.get(i + 1) - highTemp.get(i)) * offSetY;   //等比例不同点的高度
-
-            canvas.drawCircle(startX, startY, 8, mHighLinePaint);     //画一个点
-
-            canvas.drawLine(startX, startY, startX + columsWidth, startY + detay, mHighLinePaint); //画线
-
-            canvas.drawText(highTemp.get(i) + "°", startX, startY + offSetText, mTextPaint);   //写上温度
-
-            Log.d("height", "onDraw: " + startY);
+            detay = startY + (highTemp.get(i + 1) - mAverage) * offSetY;
+            float y = startY + (highTemp.get(i) - mAverage) * offSetY;
+            canvas.drawCircle(startX, y, 8, mHighLinePaint);     //画一个点
+            canvas.drawLine(startX, y, startX + columsWidth, detay, mHighLinePaint); //画线
+            canvas.drawText(highTemp.get(i) + "°", startX, y + offSetText, mTextPaint);   //写上温度
             startX = startX + columsWidth;
-            startY = startY + detay;
-            Log.d("height", "onDraw: " + startY);
         }
-        canvas.drawCircle(startX, startY, 10, mHighLinePaint);
-        canvas.drawText(highTemp.get(highTemp.size() - 1) + "°", startX, startY + offSetText, mTextPaint);
+
+        float hightY = startY + (highTemp.get(highTemp.size() - 1) - mAverage) * offSetY;
+        canvas.drawCircle(startX, hightY, 8, mHighLinePaint);
+        canvas.drawText(highTemp.get(highTemp.size() - 1) + "°", startX, hightY + offSetText, mTextPaint);
 
         if (lowTemp == null) {
             return;
         }
         startX = columsWidth / 2;
-        startY = viewHeight / 3 + (lowTemp.get(0) - highTemp.get(0)) * offSetY;
 
-//        startY = viewHeight / 3 + (highTemp.get(0) - lowTemp.get(0)) * -offSetY;
-
-        for (int i = 0; i < lowTemp.size() - 1; i++) {
+        int lowSize = lowTemp.size();
+        for (int i = 0; i < lowSize - 1; i++) {
             mLowLinePaint.setAlpha(0xff);
-
-            detay = (lowTemp.get(i + 1) - lowTemp.get(i)) * offSetY;   //等比例不同点的高度
-            canvas.drawCircle(startX, startY, 10, mLowLinePaint);     //画一个点
-
-            canvas.drawLine(startX, startY, startX + columsWidth, startY + detay, mLowLinePaint); //画线
-            canvas.drawText(lowTemp.get(i) + "°", startX, startY - offSetText * 2, mTextPaint);   //写上温度
-
+            detay = startY + (mAverage - lowTemp.get(i + 1)) * -offSetY;   //等比例不同点的高度
+            float y = startY + (mAverage - lowTemp.get(i)) * -offSetY;
+            canvas.drawCircle(startX, y, 8, mLowLinePaint);     //画一个点
+            canvas.drawLine(startX, y, startX + columsWidth, detay, mLowLinePaint); //画线
+            canvas.drawText(lowTemp.get(i) + "°", startX, y - offSetText * 2, mTextPaint);   //写上温度
             startX = startX + columsWidth;
-            startY = startY + detay;
         }
-        canvas.drawCircle(startX, startY, 10, mLowLinePaint);
-        canvas.drawText(lowTemp.get(lowTemp.size() - 1) + "°", startX, startY - offSetText * 2, mTextPaint);
+
+        float endY = startY + (mAverage - lowTemp.get(lowSize - 1)) * -offSetY;
+        canvas.drawCircle(startX, endY, 8, mLowLinePaint);
+        canvas.drawText(lowTemp.get(lowSize - 1) + "°", startX, endY - offSetText * 2, mTextPaint);
 
     }
 }

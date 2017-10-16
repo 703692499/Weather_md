@@ -39,6 +39,7 @@ import com.willchen.weather.view.DailyView;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Calendar;
 import java.util.List;
 
@@ -427,6 +428,18 @@ public class WeatherActivity extends AppCompatActivity implements View.OnClickLi
         if (mode == Constant.RESULT_HTTP) {
             sqLiteHandle.saveDaliyWeather(cityName, msg);
         }
+//        mHighTemp =new ArrayList<>();
+//        mLowTemp = new ArrayList<>();
+//        mHighTemp.add(30);
+//        mHighTemp.add(40);
+//        mHighTemp.add(30);
+//        mHighTemp.add(60);
+//        mHighTemp.add(30);
+//        mLowTemp.add(20);
+//        mLowTemp.add(30);
+//        mLowTemp.add(10);
+//        mLowTemp.add(7);
+//        mLowTemp.add(2 );
         dailyView.setHighTemp(mHighTemp);
         dailyView.setLowTemp(mLowTemp);
         gvWeatherDaily.setAdapter(new GvDailyAdapter(WeatherActivity.this, mDailyDate, mDailyIcon));
